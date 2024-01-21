@@ -1,7 +1,7 @@
 // Import our custom CSS
 import '../scss/styles.scss';
-import onChange from 'on-change';
 import validation from './validation.js';
+import watchers from './view/watchers.js';
 
 const state = {
   items: [],
@@ -13,29 +13,21 @@ const state = {
 const inputEl = document.querySelector('input#urlInput');
 const btnEl = document.querySelector('button');
 
-const proxyState = onChange(state, (path, value) => {
-  if (path === 'input.isValid') {
-    const map = {
-      valid: () => {
-        inputEl.classList.remove('is-invalid');
-      },
-      invalid: () => {
-        inputEl.classList.add('is-invalid');
-      },
-    };
-    map[value]();
-  }
-});
+const proxyState = watchers(state, inputEl);
 
 btnEl.addEventListener('click', (e) => {
   e.preventDefault();
-  try {
-    const { value } = inputEl;
-    validation(value).then((result) => {
-      proxyState.input.isValid = result ? 'valid' : 'invalid';
-    });
-    console.log(state);
-  } catch (err) {
-    console.error(err);
-  }
+  const { value } = inputEl;
+  validation(value).then((result) => {
+    proxyState.input.state = result
+      ? proxyState.input.state = (!state.items.findIndex(({ url }) => url === value))
+        ? 'exists' : 'valid'
+      : 'invalid';
+  }).then(() => {
+    if (state.input.state === 'valid') {
+      state.items.push({ url: value });
+      inputEl.value = '';
+      inputEl.focus();
+    }
+  }).catch(console.error);
 });

@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-let schema = yup.object().shape({
+const schema = yup.object().shape({
   url: yup.string().url().required(),
 });
 
