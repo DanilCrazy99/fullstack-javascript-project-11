@@ -10,5 +10,8 @@ test:
 build:
 	npx webpack
 
+build_prod:
+	npx webpack --mode production
+
 dev:
-	npx webpack serve
+	npx webpack serve --no-stats
