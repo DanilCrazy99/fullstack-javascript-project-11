@@ -1,0 +1,31 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.0.1",
+  "description": "RSS Aggregator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanilCrazy99/fullstack-javascript-project-11.git#second"
+  },
+  "keywords": [
+    "rss",
+    "nodejs",
+    "webpack",
+    "bootstrap5",
+    "html",
+    "css"
+  ],
+  "author": "Volkov Danil (volchara287@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanilCrazy99/fullstack-javascript-project-11/issues"
+  },
+  "homepage": "https://github.com/DanilCrazy99/fullstack-javascript-project-11/tree/second#readme",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4"
+  }
+}
