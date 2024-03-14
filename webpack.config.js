@@ -1,56 +1,55 @@
-import path from 'path';
+/* eslint-disable import/no-extraneous-dependencies */
+import path, { resolve } from 'path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 
+const moduleDirname = dirname(fileURLToPath(import.meta.url));
+
 export default {
-  mode: 'development',
-  entry: './src/js/index.js',
+  entry: './src/index.js',
   output: {
-    filename: 'index_bundle.js',
-    path: path.resolve('dist'),
+    filename: 'main.js',
+    path: resolve(moduleDirname, 'dist'),
+    clean: true,
   },
   devServer: {
-    static: path.resolve('dist'),
+    static: path.resolve(moduleDirname, 'dist'),
     port: 8080,
     hot: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'index.html',
-    }),
+    new HtmlWebpackPlugin({ template: './src/index.html' }),
   ],
   module: {
-    rules: [
-      {
-        test: /\.(scss)$/,
-        use: [
-          {
-            // Adds CSS to the DOM by injecting a `<style>` tag
-            loader: 'style-loader',
-          },
-          {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: 'css-loader',
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [autoprefixer],
-              },
+    rules: [{
+      test: /\.(scss)$/,
+      use: [{
+        // inject CSS to page
+        loader: 'style-loader',
+      }, {
+        // translates CSS into CommonJS modules
+        loader: 'css-loader',
+      }, {
+        // Run postcss actions
+        loader: 'postcss-loader',
+        options: {
+          // `postcssOptions` is needed for postcss 8.x;
+          // if you use postcss 7.x skip the key
+          postcssOptions: {
+            // postcss plugins, can be exported to postcss.config.js
+            plugins() {
+              return [
+                autoprefixer,
+              ];
             },
           },
-          {
-            // Loads a SASS/SCSS file and compiles it to CSS
-            loader: 'sass-loader',
-          },
-        ],
-      },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-    ],
+        },
+      }, {
+        // compiles Sass to CSS
+        loader: 'sass-loader',
+      }],
+    }],
   },
 };

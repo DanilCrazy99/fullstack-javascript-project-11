@@ -1,38 +1,48 @@
 {
   "name": "@hexlet/code",
   "version": "0.0.1",
-  "description": "[![Actions Status](https://github.com/DanilCrazy99/fullstack-javascript-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/DanilCrazy99/fullstack-javascript-project-11/actions)",
+  "description": "RSS Aggregator",
+  "private": "true",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve --mode development"
+  },
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DanilCrazy99/fullstack-javascript-project-11.git"
+    "url": "git+https://github.com/DanilCrazy99/fullstack-javascript-project-11.git#second"
   },
-  "author": "Danil Volkov (volchara287@gmail.com)",
+  "keywords": [
+    "rss",
+    "nodejs",
+    "webpack",
+    "bootstrap5",
+    "html",
+    "css"
+  ],
+  "author": "Volkov Danil (volchara287@gmail.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DanilCrazy99/fullstack-javascript-project-11/issues"
   },
-  "homepage": "https://github.com/DanilCrazy99/fullstack-javascript-project-11#readme",
-  "dependencies": {
-    "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.2",
-    "i18next": "^23.8.1",
-    "on-change": "^5.0.1",
-    "yup": "^1.3.3"
-  },
+  "homepage": "https://github.com/DanilCrazy99/fullstack-javascript-project-11/tree/second#readme",
   "devDependencies": {
-    "autoprefixer": "^10.4.17",
-    "css-loader": "^6.9.1",
+    "css-loader": "^6.10.0",
     "eslint": "^8.56.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
+    "eslint-config-airbnb": "^19.0.4",
     "html-webpack-plugin": "^5.6.0",
-    "postcss-loader": "^8.0.0",
-    "sass": "^1.70.0",
-    "sass-loader": "^14.0.0",
+    "postcss": "^8.4.35",
+    "postcss-loader": "^8.1.0",
+    "sass": "^1.71.1",
+    "sass-loader": "^14.1.1",
     "style-loader": "^3.3.4",
-    "webpack": "^5.89.0",
+    "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.1"
+    "webpack-dev-server": "^5.0.2"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "bootstrap": "^5.3.3",
+    "postcss-cli": "^11.0.0"
   }
 }

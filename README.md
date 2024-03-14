@@ -9,3 +9,4 @@
   - Launch server which looking at changes in your dev files
 - build
   - Build distribution files for development
+  
