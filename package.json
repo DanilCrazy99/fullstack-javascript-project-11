@@ -2,10 +2,12 @@
   "name": "@hexlet/code",
   "version": "0.0.1",
   "description": "RSS Aggregator",
-  "main": "index.js",
+  "private": "true",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "start": "webpack serve --mode development"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DanilCrazy99/fullstack-javascript-project-11.git#second"
@@ -25,7 +27,22 @@
   },
   "homepage": "https://github.com/DanilCrazy99/fullstack-javascript-project-11/tree/second#readme",
   "devDependencies": {
+    "css-loader": "^6.10.0",
     "eslint": "^8.56.0",
-    "eslint-config-airbnb": "^19.0.4"
+    "eslint-config-airbnb": "^19.0.4",
+    "html-webpack-plugin": "^5.6.0",
+    "postcss": "^8.4.35",
+    "postcss-loader": "^8.1.0",
+    "sass": "^1.71.1",
+    "sass-loader": "^14.1.1",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.17",
+    "bootstrap": "^5.3.3",
+    "postcss-cli": "^11.0.0"
   }
 }
