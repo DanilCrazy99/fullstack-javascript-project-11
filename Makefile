@@ -2,7 +2,7 @@ install:
 	npm i
 
 build:
-	webpack
+	npx webpack
 
 serve:
-	webpack serve --mode development
+	npx webpack serve --mode development
