@@ -22,34 +22,49 @@
     <meta property="og:image" content="/src/assets/pict/rsspicture.jpg" />
     <title>RSS Агрегатор - Читать RSS ленты легко и просто</title>
   </head>
-  <body class="d-flex flex-column">
+  <body class="d-flex flex-column h-100">
     <main>
-      <div class="container-fluid bg-dark text-white p-3">
-        <div class="row display-3">
-          <div class="col">RSS агрегатор</div>
-        </div>
-        <p>Начните читать RSS сегодня! Это легко, это красиво.</p>
+      <section class="container-fluid bg-dark text-white p-5">
         <div class="row">
-          <div class="col d-flex">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Ссылка RSS"
-              aria-label="Ссылка RSS"
-              autofocus
-            />
-            <button type="button" class="btn btn-primary ms-3">Добавить</button>
+          <div class="col-md-10 col-lg-8 mx-auto">
+            <h1 class="display-3">RSS агрегатор</h1>
+            <p class="lead">
+              Начните читать RSS сегодня! Это легко, это красиво.
+            </p>
+            <div class="col d-flex">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Ссылка RSS"
+                aria-label="Ссылка RSS"
+                autofocus
+              />
+              <button type="button" class="btn btn-primary ms-3">
+                Добавить
+              </button>
+            </div>
+            <p class="text-white-50 m-0">
+              Пример: https://lorem-rss.hexlet.app/feed
+            </p>
+            <p class="text-success m-0 visually-hidden">RSS успешно загружен</p>
+            <p class="text-danger m-0 visually-hidden">
+              Ресурс не содержит валидный RSS
+            </p>
           </div>
         </div>
-        <div class="row">
-          <p class="text-white-50 m-0">
-            Пример: https://lorem-rss.hexlet.app/feed
-          </p>
-          <p class="text-success m-0">RSS успешно загружен</p>
-          <p class="text-danger m-0">Ресурс не содержит валидный RSS</p>
+      </section>
+      <section class="container-fluid"></section>
+    </main>
+    <footer class="fixed-bottom py-3">
+      <div class="container">
+        <div class="row ">
+          <div class="col text-center ">
+            Создано
+            <a href="https://github.com/VolkovDani" target="_blank">Данилом</a>
+          </div>
         </div>
       </div>
-    </main>
+    </footer>
     <script src="src/index.js"></script>
   </body>
 </html>
