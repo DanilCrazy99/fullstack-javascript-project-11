@@ -45,6 +45,7 @@ export const appState = onChange(
                 feedBackEl.textContent = 'URL успешно добавлен';
                 infoBlock.replaceChildren(feedBackEl);
                 inputEl.value = '';
+                inputEl.focus();
                 appState.value = null;
               } else {
                 appState.error = 'invalidUrl';
