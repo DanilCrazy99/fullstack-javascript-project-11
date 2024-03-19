@@ -5,5 +5,5 @@ const btnEl = document.getElementById('btn-input');
 
 btnEl.addEventListener('click', (e) => {
   e.preventDefault();
-  appState.value = inputEl.value.trim();
+  appState.value = inputEl.value;
 });
