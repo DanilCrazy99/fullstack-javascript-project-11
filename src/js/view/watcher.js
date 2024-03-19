@@ -11,11 +11,11 @@ export const appState = onChange(
     error: '',
     info: [],
   },
-  (path, value, prevValue, applyData) => {
-    console.log(path);
-    console.log(value);
-    console.log(prevValue);
-    console.log(applyData);
+  (path, value) => {
+    // console.log(path);
+    // console.log(value);
+    // console.log(prevValue);
+    // console.log(applyData);
     const feedBackEl = document.createElement('p');
     switch (path) {
       case 'error': {
