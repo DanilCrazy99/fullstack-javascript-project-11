@@ -8,7 +8,7 @@ import autoprefixer from 'autoprefixer';
 const moduleDirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
-  entry: './src/index.js',
+  entry: './src/js/index.js',
   output: {
     filename: 'main.js',
     path: resolve(moduleDirname, 'dist'),

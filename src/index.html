@@ -24,41 +24,50 @@
   </head>
   <body class="d-flex flex-column h-100">
     <main>
-      <section class="container-fluid bg-dark text-white p-5">
+      <section class="container-fluid bg-dark text-white p-xl-5 p-4">
         <div class="row">
           <div class="col-md-10 col-lg-8 mx-auto">
             <h1 class="display-3">RSS агрегатор</h1>
             <p class="lead">
               Начните читать RSS сегодня! Это легко, это красиво.
             </p>
-            <div class="col d-flex">
+            <form class="col d-flex">
               <input
                 type="text"
                 class="form-control"
                 placeholder="Ссылка RSS"
-                aria-label="Ссылка RSS"
+                aria-label="url"
                 autofocus
+                required
+                autocomplete="off"
+                id="url-input"
               />
-              <button type="button" class="btn btn-primary ms-3">
+              <button type="submit" class="btn btn-primary ms-3" id="btn-input">
                 Добавить
               </button>
-            </div>
-            <p class="text-white-50 m-0">
+            </form>
+            <!-- info block -->
+
+            <p class="text-white-50 m-0" id="input-example">
               Пример: https://lorem-rss.hexlet.app/feed
             </p>
-            <p class="text-success m-0 visually-hidden">RSS успешно загружен</p>
-            <p class="text-danger m-0 visually-hidden">
-              Ресурс не содержит валидный RSS
-            </p>
+            <div id="info-block">
+              <!-- <p class="text-success m-0 visually-hidden">
+                RSS успешно загружен
+              </p>
+              <p class="text-danger m-0 visually-hidden">
+                Ресурс не содержит валидный RSS
+              </p> -->
+            </div>
           </div>
         </div>
       </section>
       <section class="container-fluid"></section>
     </main>
-    <footer class="fixed-bottom py-3">
+    <footer class="fixed-bottom py-3 bg-secondary-subtle">
       <div class="container">
-        <div class="row ">
-          <div class="col text-center ">
+        <div class="row">
+          <div class="col text-center">
             Создано
             <a href="https://github.com/VolkovDani" target="_blank">Данилом</a>
           </div>
