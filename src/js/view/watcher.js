@@ -1,7 +1,8 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
-import userScheme from '../validation.js';
+import userScheme from '../utils/validation.js';
 import ru from '../lang/ru.js';
+import getRss from '../rss/getRss.js';
 
 i18next.init({
   lng: 'ru',
@@ -43,7 +44,7 @@ export const appState = onChange(
         } else {
           userScheme
             .validate({ value })
-            .then((result) => {
+            .then(() => {
               appState.error = null;
               inputEl.classList.remove('is-invalid');
               appState.urls.push(value);
@@ -53,7 +54,9 @@ export const appState = onChange(
               inputEl.value = '';
               inputEl.focus();
               appState.value = null;
+              return value;
             })
+            .then(getRss)
             .catch((e) => {
               appState.error = e.message;
               console.log(e);
@@ -64,5 +67,5 @@ export const appState = onChange(
       default:
         break;
     }
-  }
+  },
 );
