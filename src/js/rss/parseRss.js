@@ -39,4 +39,5 @@ export default (res) => {
       .forEach(callbackAddToItems);
   });
   console.log(feed);
+  return feed;
 };
