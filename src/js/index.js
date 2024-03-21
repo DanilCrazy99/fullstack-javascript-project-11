@@ -1,7 +1,6 @@
 import 'bootstrap/scss/bootstrap.scss';
-import { appState, inputEl } from './view/watcher.js';
-
-const btnEl = document.getElementById('btn-input');
+import appState from './view/watcher.js';
+import { inputEl, btnEl } from './view/components.js';
 
 btnEl.addEventListener('click', (e) => {
   e.preventDefault();
