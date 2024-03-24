@@ -9,6 +9,7 @@ import {
   disableInputEls,
   enableInputEls,
 } from './components.js';
+import { countsInFeeds } from '../rss/parseRss.js';
 
 i18next.init({
   lng: 'ru',
@@ -25,6 +26,7 @@ export default onChange(
     error: '',
     info: [],
     state: 'idle',
+    feeds: [],
   },
   function cbWatcher(path, value) {
     // console.log('path:', path);
@@ -58,11 +60,13 @@ export default onChange(
             .then((result) => {
               inputEl.classList.remove('is-invalid');
               getRss(result)
-                .then(() => {
+                .then((feed) => {
                   this.urls.push(value);
                   makeFeedbackEl('info', i18next.t('feedback.info.urlAdded'));
                   this.value = null;
                   enableInputEls();
+                  console.log(this.feeds);
+                  this.feeds.push({ id: countsInFeeds.countFeeds, feed });
                 })
                 .catch((e) => {
                   this.state = 'idle';
@@ -86,6 +90,9 @@ export default onChange(
         if (value === 'pending') {
           makeFeedbackEl();
         }
+        break;
+      case 'feeds':
+        console.log('making list of feeds');
         break;
       default:
         break;
