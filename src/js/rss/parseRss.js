@@ -1,3 +1,8 @@
+export const countsInFeeds = {
+  countPosts: 0,
+  countFeeds: 0,
+};
+
 export default (res) => {
   const objXML = JSON.parse(res.data).contents;
   const parser = new DOMParser();
@@ -6,18 +11,19 @@ export default (res) => {
   console.log(parsedDOM);
   // document.body.innerHTML = parsedDOM.children[0].children[0].innerHTML;
   const feed = {
-    mainFeed: {},
+    feed: {},
     items: [],
   };
   // Фильтрует информацию по фиду, забирает description, link, title
   const callbackFilterFeed = (tags) => ([, value]) => tags.includes(value.tagName);
-  // Добавляет значения тегов в объект mainFeed
+  // Добавляет значения тегов в объект feed
   const callbackAddToFeedObj = ([, value]) => {
     const { tagName } = value;
-    feed.mainFeed[tagName] = value.textContent;
+    feed.feed[tagName] = value.textContent;
   };
 
   const callbackAddToItems = ([, value]) => {
+    countsInFeeds.countPosts += 1;
     const itemObj = {};
     const item = Object.entries(value.children).filter(
       callbackFilterFeed(['description', 'link', 'title']),
@@ -39,5 +45,6 @@ export default (res) => {
       .forEach(callbackAddToItems);
   });
   console.log(feed);
+  countsInFeeds.countFeeds += 1;
   return feed;
 };
