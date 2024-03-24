@@ -3,7 +3,12 @@ import i18next from 'i18next';
 import userScheme from '../utils/validation.js';
 import ru from '../lang/ru.js';
 import getRss from '../rss/getRss.js';
-import { infoBlock, inputEl, btnEl } from './components.js';
+import {
+  inputEl,
+  makeFeedbackEl,
+  disableInputEls,
+  enableInputEls,
+} from './components.js';
 
 i18next.init({
   lng: 'ru',
@@ -19,57 +24,69 @@ export default onChange(
     urls: [],
     error: '',
     info: [],
+    state: 'idle',
   },
   function cbWatcher(path, value) {
     // console.log('path:', path);
     // console.log('value:', value);
     // console.log(prevValue);
     // console.log(applyData);
-    const feedBackEl = document.createElement('p');
     switch (path) {
       case 'error': {
         if (value === null) return;
-        feedBackEl.classList.add('text-danger', 'm-0');
-        feedBackEl.textContent = i18next.t(`feedback.errors.${value}`);
-        infoBlock.replaceChildren(feedBackEl);
+        makeFeedbackEl('error', i18next.t(`feedback.errors.${value}`));
         inputEl.classList.add('is-invalid');
         break;
       }
       case 'value': {
-        if (value === null) return;
+        if (value === null) {
+          inputEl.value = '';
+          inputEl.focus();
+          return;
+        }
         if (this.urls.includes(value)) {
           this.error = 'doubleUrl';
         } else {
+          disableInputEls();
           userScheme
             .validate({ value })
             .then(() => {
-              btnEl.classList.add('disabled');
-              inputEl.setAttribute('disabled', 'disabled');
+              this.state = 'pending';
               this.error = null;
               return value;
             })
-            .then(getRss)
-            .then(() => {
+            .then((result) => {
               inputEl.classList.remove('is-invalid');
-              this.urls.push(value);
-              feedBackEl.classList.add('text-success', 'm-0');
-              feedBackEl.textContent = i18next.t('feedback.info.urlAdded');
-              infoBlock.replaceChildren(feedBackEl);
-              inputEl.value = '';
-              inputEl.focus();
-              this.value = null;
+              getRss(result)
+                .then(() => {
+                  this.urls.push(value);
+                  makeFeedbackEl('info', i18next.t('feedback.info.urlAdded'));
+                  this.value = null;
+                  enableInputEls();
+                })
+                .catch((e) => {
+                  this.state = 'idle';
+                  // this.value = null;
+                  this.error = e.message;
+                  enableInputEls();
+                });
             })
             .catch((e) => {
-              this.value = null;
+              this.state = 'idle';
+              // this.value = null;
               this.error = e.message;
-            })
-            .finally(() => {
-              btnEl.classList.remove('disabled');
-              inputEl.removeAttribute('disabled', 'disabled');
+              enableInputEls();
             });
         }
         break;
       }
+      case 'state':
+        console.log(value);
+        if (value === 'idle') return;
+        if (value === 'pending') {
+          makeFeedbackEl();
+        }
+        break;
       default:
         break;
     }
