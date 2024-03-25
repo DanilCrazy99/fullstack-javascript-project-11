@@ -3,7 +3,7 @@ import parseRss from './parseRss.js';
 
 export default (url) =>
   new Promise((resolve, reject) => {
-    const allOriginsUrl = `http://localhost:1458/${url}`;
+    const allOriginsUrl = `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`;
     axios({
       method: 'get',
       url: allOriginsUrl,
