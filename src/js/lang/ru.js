@@ -18,5 +18,9 @@ export default {
     buttons: {
       posts: 'Просмотр',
     },
+    modal: {
+      closeBtn: 'Закрыть',
+      openBtn: 'Читать полностью',
+    },
   },
 };
