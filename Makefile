@@ -9,3 +9,6 @@ serve:
 	
 proxy:
 	npm run proxy
+
+buildproxy: 
+	make -j 2 build proxy
