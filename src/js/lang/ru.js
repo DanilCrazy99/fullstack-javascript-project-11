@@ -11,6 +11,10 @@ export default {
         urlAdded: 'URL успешно добавлен',
       },
     },
+    lists: {
+      feeds: 'Фиды',
+      posts: 'Посты',
+    },
     buttons: {
       posts: 'Просмотр',
     },
