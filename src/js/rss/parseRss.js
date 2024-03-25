@@ -12,6 +12,7 @@ export default (res) => {
   console.log(parsedDOM);
   // document.body.innerHTML = parsedDOM.children[0].children[0].innerHTML;
   const feed = {
+    ids: [],
     feed: {},
     items: [],
   };
@@ -27,7 +28,7 @@ export default (res) => {
   const callbackAddToItems = ([, value]) => {
     const itemObj = {};
     const item = Object.entries(value.children).filter(
-      callbackFilterFeed(['description', 'link', 'title'])
+      callbackFilterFeed(['description', 'link', 'title']),
     );
     item.forEach(([, value1]) => {
       if (['description', 'link', 'title'].includes(value1.tagName)) {
@@ -35,7 +36,8 @@ export default (res) => {
       }
     });
     countsInFeeds.countPosts += 1;
-    itemObj.postId = Number(countsInFeeds.countPosts);
+    itemObj.id = Number(countsInFeeds.countPosts);
+    feed.ids.push(Number(countsInFeeds.countPosts));
     feed.items.push(itemObj);
   };
 
