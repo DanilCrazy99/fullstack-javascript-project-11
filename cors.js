@@ -1,6 +1,6 @@
 import proxyServer from 'cors-anywhere';
 
-const host = 'localhost';
+const host = '127.0.0.1';
 const port = 1458;
 
 proxyServer
@@ -11,4 +11,5 @@ proxyServer
   })
   .listen(port, host, function () {
     console.log('Running CORS Anywhere on ' + host + ':' + port);
-  });
+  })
+  .setMaxListeners(10);
