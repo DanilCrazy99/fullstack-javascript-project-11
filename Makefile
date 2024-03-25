@@ -6,3 +6,6 @@ build:
 
 serve:
 	npx webpack serve --mode development
+	
+proxy:
+	npm run proxy

@@ -5,7 +5,8 @@
   "private": "true",
   "scripts": {
     "build": "webpack",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development",
+    "proxy": "node cors.js"
   },
   "type": "module",
   "repository": {
@@ -44,6 +45,7 @@
     "autoprefixer": "^10.4.17",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
+    "cors-anywhere": "^0.4.4",
     "i18next": "^23.10.1",
     "on-change": "^5.0.1",
     "postcss-cli": "^11.0.0",

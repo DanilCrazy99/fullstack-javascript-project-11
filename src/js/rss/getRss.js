@@ -3,9 +3,7 @@ import parseRss from './parseRss.js';
 
 export default (url) =>
   new Promise((resolve, reject) => {
-    const allOriginsUrl = `http://localhost:1458/get?url=${encodeURIComponent(
-      url
-    )}`;
+    const allOriginsUrl = `http://localhost:1458/${url}`;
     axios({
       method: 'get',
       url: allOriginsUrl,
