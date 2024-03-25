@@ -12,3 +12,6 @@ proxy:
 
 buildproxy: 
 	make -j 2 build proxy
+
+serveproxy:
+	make -j 2 serve proxy
