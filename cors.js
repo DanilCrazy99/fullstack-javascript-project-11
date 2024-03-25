@@ -6,7 +6,7 @@ const port = 1458;
 proxyServer
   .createServer({
     originWhitelist: [], // Allow all origins
-    // requireHeader: ['origin', 'x-requested-with'],
+    requireHeader: ['origin', 'x-requested-with'],
     removeHeaders: ['cookie', 'cookie2'],
   })
   .listen(port, host, function () {
