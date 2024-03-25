@@ -8,7 +8,7 @@ serve:
 	npx webpack serve --mode development
 	
 proxy:
-	npm run proxy
+	npm run proxy &
 
 buildproxy: 
 	make -j 2 build proxy
