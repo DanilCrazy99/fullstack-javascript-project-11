@@ -11,5 +11,8 @@ export default {
         urlAdded: 'URL успешно добавлен',
       },
     },
+    buttons: {
+      posts: 'Просмотр',
+    },
   },
 };

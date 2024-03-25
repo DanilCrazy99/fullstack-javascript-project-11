@@ -8,6 +8,7 @@ import {
   makeFeedbackEl,
   disableInputEls,
   enableInputEls,
+  makePostsList,
 } from './components.js';
 import { countsInFeeds } from '../rss/parseRss.js';
 
@@ -67,6 +68,9 @@ export default onChange(
                   enableInputEls();
                   console.log(this.feeds);
                   this.feeds.push({ id: countsInFeeds.countFeeds, feed });
+                  makePostsList(feed.items, {
+                    btnText: i18next.t('buttons.posts'),
+                  });
                 })
                 .catch((e) => {
                   this.state = 'idle';

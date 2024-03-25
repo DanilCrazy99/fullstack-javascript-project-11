@@ -15,7 +15,10 @@ export default (res) => {
     items: [],
   };
   // Фильтрует информацию по фиду, забирает description, link, title
-  const callbackFilterFeed = (tags) => ([, value]) => tags.includes(value.tagName);
+  const callbackFilterFeed =
+    (tags) =>
+    ([, value]) =>
+      tags.includes(value.tagName);
   // Добавляет значения тегов в объект feed
   const callbackAddToFeedObj = ([, value]) => {
     const { tagName } = value;
@@ -23,7 +26,6 @@ export default (res) => {
   };
 
   const callbackAddToItems = ([, value]) => {
-    countsInFeeds.countPosts += 1;
     const itemObj = {};
     const item = Object.entries(value.children).filter(
       callbackFilterFeed(['description', 'link', 'title']),
@@ -33,6 +35,8 @@ export default (res) => {
         itemObj[value1.tagName] = value1.textContent;
       }
     });
+    countsInFeeds.countPosts += 1;
+    itemObj.postId = Number(countsInFeeds.countPosts);
     feed.items.push(itemObj);
   };
 
