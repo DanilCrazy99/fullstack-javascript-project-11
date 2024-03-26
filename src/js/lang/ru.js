@@ -13,6 +13,7 @@ export default {
         invalidUrl: 'Некорректный URL',
         nullValue: 'URL не должен быть пустым',
         'Network Error': 'Ошибка сети',
+        emptyRss: 'На сайте отсутствует RSS лента',
       },
       info: {
         urlAdded: 'URL успешно добавлен',

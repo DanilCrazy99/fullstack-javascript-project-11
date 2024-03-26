@@ -13,6 +13,7 @@ export default {
         invalidUrl: 'Not correct format',
         nullValue: 'URL must not be empty',
         'Network Error': 'Network Error',
+        emptyRss: 'RSS not exists on that URL',
       },
       info: {
         urlAdded: 'URL successfuly added',

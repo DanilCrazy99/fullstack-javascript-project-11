@@ -13,6 +13,7 @@ export default {
         invalidUrl: '形式が正しくありません',
         nullValue: 'URL は空であってはなりません',
         'Network Error': 'ネットワークエラー',
+        emptyRss: 'サイトには RSS フィードがありません',
       },
       info: {
         urlAdded: 'URLが正常に追加されました',
