@@ -1,6 +1,7 @@
 import 'bootstrap/scss/bootstrap.scss';
 import appState, { appStateInit } from './view/watcher.js';
 import { inputEl, btnEl, initFunc } from './view/components.js';
+import switcher from './lang/switcher.js';
 
 btnEl.addEventListener('click', (e) => {
   e.preventDefault();
@@ -8,3 +9,4 @@ btnEl.addEventListener('click', (e) => {
 });
 
 initFunc(appStateInit.feeds);
+switcher();

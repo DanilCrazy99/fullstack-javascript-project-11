@@ -1,7 +1,6 @@
 import onChange from 'on-change';
 import i18next from 'i18next';
 import userScheme from '../utils/validation.js';
-import ru from '../lang/ru.js';
 import getRss from '../rss/getRss.js';
 import {
   inputEl,
@@ -11,14 +10,6 @@ import {
   makePostsEl,
 } from './components.js';
 import { countsInFeeds } from '../rss/parseRss.js';
-
-i18next.init({
-  lng: 'ru',
-  debug: false,
-  resources: {
-    ru,
-  },
-});
 
 export const appStateInit = {
   value: null,
@@ -37,8 +28,8 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
   switch (path) {
     case 'error': {
       if (value === null) return;
-      // console.log(value);
-      makeFeedbackEl('error', i18next.t(`feedback.errors.${value.message}`));
+      console.log(value);
+      makeFeedbackEl('error', i18next.t(`feedback.errors.${value}`));
       inputEl.classList.add('is-invalid');
       break;
     }
@@ -79,7 +70,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
               .catch((e) => {
                 this.state = 'idle';
                 // this.value = null;
-                this.error = e;
+                this.error = e.message;
                 enableInputEls();
               });
           })

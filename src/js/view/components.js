@@ -1,4 +1,5 @@
 import { Modal } from 'bootstrap';
+import i18next from 'i18next';
 
 export const btnEl = document.getElementById('btn-input');
 export const infoBlock = document.getElementById('info-block');
@@ -13,6 +14,12 @@ const bootstrapEls = {};
 
 export const initFunc = (feeds) => {
   bootstrapEls.modal = new Modal(modalEl);
+  const btnOpenEl = document.getElementById('btn-modal-open');
+  const btnCloseEl = document.getElementById('btn-modal-close');
+
+  btnOpenEl.textContent = i18next.t('modal.openBtn');
+  btnCloseEl.textContent = i18next.t('modal.closeBtn');
+
   modalEl.addEventListener('show.bs.modal', (e) => {
     // console.log(feeds);
     // console.log(e.relatedTarget.dataset.id);
