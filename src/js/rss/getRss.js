@@ -11,6 +11,7 @@ export default (url) => new Promise((resolve, reject) => {
     .then((res) => {
       console.log(res);
       const result = parseRss(res);
+      if (Object.keys(result.feed).length === 0) reject(new Error('emptyRss'));
       resolve(result);
     })
     .catch(reject);
