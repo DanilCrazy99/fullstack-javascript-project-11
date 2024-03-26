@@ -1,8 +1,36 @@
+import { Modal } from 'bootstrap';
+
 export const btnEl = document.getElementById('btn-input');
 export const infoBlock = document.getElementById('info-block');
 export const inputEl = document.getElementById('url-input');
 export const feedBackEl = document.getElementById('feedback');
 export const postsContainer = document.getElementById('posts');
+export const mainEl = document.getElementsByTagName('main');
+export const modalEl = document.getElementById('modal');
+const modalTitle = document.getElementById('modal-title');
+const modalBody = document.getElementById('modal-body');
+const bootstrapEls = {};
+
+export const initFunc = (feeds) => {
+  bootstrapEls.modal = new Modal(modalEl);
+  modalEl.addEventListener('show.bs.modal', (e) => {
+    // console.log(feeds);
+    // console.log(e.relatedTarget.dataset.id);
+    const postId = Number(e.relatedTarget.dataset.id);
+    // console.log(postId);
+    const item = feeds.find(({ feed }) => {
+      const { ids } = feed;
+      // console.log(feed);
+      if (ids.includes(postId)) return true;
+    });
+    const { title, description } = item.feed.items.find(
+      ({ id }) => id === postId,
+    );
+    modalTitle.textContent = title;
+    modalBody.textContent = description;
+    // modalTitle.textContent =
+  });
+};
 
 export const makeFeedbackEl = (type, msg) => {
   feedBackEl.textContent = msg;
@@ -28,12 +56,17 @@ export const enableInputEls = () => {
   inputEl.removeAttribute('disabled', 'disabled');
 };
 
-export const makePostsEl = ({ items, feed }, options) => {
+export const makePostsEl = (feeds, options) => {
   const {
     btnText = 'Просмотр',
     textPostsList = 'Посты',
     textFeedsList = 'Фиды',
   } = options;
+
+  const allPosts = feeds.map(({ feed }) => feed.items).flat();
+
+  const allFeeds = feeds.map(({ feed }) => feed.feed).flat();
+  console.log('createListPosts: ', allFeeds);
 
   const createListPosts = (posts) => {
     const ulEl = document.createElement('ul');
@@ -47,11 +80,12 @@ export const makePostsEl = ({ items, feed }, options) => {
         'justify-content-between',
         'align-items-start',
         'border-0',
-        'border-end-0',
+        'border-end-0'
       );
+
       const aEl = document.createElement('a');
       aEl.classList.add('fw-bold');
-      aEl.setAttribute('data-id', post.postId);
+      aEl.setAttribute('data-id', post.id);
       aEl.setAttribute('target', '_blank');
       aEl.setAttribute('rel', 'noopener noreferrer');
       aEl.setAttribute('href', post.link);
@@ -60,8 +94,10 @@ export const makePostsEl = ({ items, feed }, options) => {
       const btnPostEl = document.createElement('button');
       btnPostEl.classList.add('btn', 'btn-outline-primary', 'btn-sm');
       btnPostEl.setAttribute('type', 'button');
-      btnPostEl.setAttribute('data-id', post.postId);
+      btnPostEl.setAttribute('data-id', post.id);
       btnPostEl.textContent = btnText;
+      btnPostEl.setAttribute('data-bs-toggle', 'modal');
+      btnPostEl.setAttribute('data-bs-target', '#modal');
 
       liEl.replaceChildren(aEl, btnPostEl);
       return liEl;
@@ -71,23 +107,27 @@ export const makePostsEl = ({ items, feed }, options) => {
     return ulEl;
   };
 
-  const createListFeeds = (feedObj) => {
+  const createListFeeds = (feedsInfo) => {
     const ulEl = document.createElement('ul');
     ulEl.classList.add('list-group', 'border-0', 'rounded-0');
+    const liEls = feedsInfo.map((item) => {
+      const liEl = document.createElement('li');
+      liEl.classList.add('list-group-item', 'border-0', 'border-end-0');
 
-    const liEl = document.createElement('li');
-    liEl.classList.add('list-group-item', 'border-0', 'border-end-0');
+      const h3El = document.createElement('h3');
+      h3El.classList.add('h6', 'm-0');
+      h3El.textContent = item.title;
 
-    const h3El = document.createElement('h3');
-    h3El.classList.add('h6', 'm-0');
-    h3El.textContent = feedObj.title;
+      const pEl = document.createElement('p');
+      pEl.classList.add('m-0', 'small', 'text-black-50');
+      pEl.textContent = item.description;
 
-    const pEl = document.createElement('p');
-    pEl.classList.add('m-0', 'small', 'text-black-50');
-    pEl.textContent = feedObj.description;
+      liEl.replaceChildren(h3El, pEl);
 
-    liEl.replaceChildren(h3El, pEl);
-    ulEl.replaceChildren(liEl);
+      return liEl;
+    });
+
+    ulEl.replaceChildren(...liEls);
     return ulEl;
   };
 
@@ -97,7 +137,7 @@ export const makePostsEl = ({ items, feed }, options) => {
     <div class="card-body">
     <h2 class="card-title h4">${textPostsList}</h2>
     </div>
-    ${createListPosts(items).outerHTML}
+    ${createListPosts(allPosts).outerHTML}
     </div>
     </div>
   <div class="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds">
@@ -105,33 +145,36 @@ export const makePostsEl = ({ items, feed }, options) => {
       <div class='card-body'>
         <h2 class='card-title h4'>${textFeedsList}</h2>
       </div>
-      ${createListFeeds(feed).outerHTML}
+      ${createListFeeds(allFeeds).outerHTML}
     </div>
   </div>`;
 };
 
-export const makeModal = ({ title, description }) => {
-  return `<!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">${title}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ${description}
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+export const makeModal = ({
+  closeBtn = 'Закрыть',
+  openBtn = 'Читать полностью',
+}) => {
+  const modalContainerEl = document.createElement('div');
+  modalContainerEl.classList.add('modal', 'fade');
+  modalContainerEl.setAttribute('id', 'modal');
+  modalContainerEl.setAttribute('tabindex', '-1');
+  modalContainerEl.setAttribute('aria-labelledby', 'exampleModalLabel');
+  modalContainerEl.setAttribute('aria-hidden', 'true');
+
+  modalContainerEl.innerHTML = `
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modalBody">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${closeBtn}</button>
+        <button type="button" class="btn btn-primary">${openBtn}</button>
       </div>
     </div>
   </div>`;
+  return modalContainerEl;
 };

@@ -27,10 +27,10 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title" id="modal-title"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть модальное окно"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="modal-body">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -52,19 +52,19 @@
                 type="text"
                 class="form-control"
                 placeholder="Ссылка RSS"
-                aria-label="url"
+                aria-label="Ввод url ссылки"
                 autofocus
                 required
                 autocomplete="off"
                 id="url-input"
               />
-              <button type="submit" class="btn btn-primary ms-3" id="btn-input">
+              <button type="submit" class="btn btn-primary ms-3" id="btn-input" aria-label="Добавить ссылку в список">
                 Добавить
               </button>
             </form>
             <!-- info block -->
 
-            <p class="text-white-50 m-0" id="input-example">
+            <p class="text-white-50 m-0" id="input-example" aria-label="Пример url ссылки с RSS лентой">
               Пример: https://lorem-rss.hexlet.app/feed
             </p>
 

@@ -9,7 +9,7 @@ export default (res) => {
   const parser = new DOMParser();
   const parsedDOM = parser.parseFromString(res.data, 'text/xml');
   // console.log(parsedDOM);
-  console.log(parsedDOM);
+  // console.log(parsedDOM);
   // document.body.innerHTML = parsedDOM.children[0].children[0].innerHTML;
   const feed = {
     ids: [],
@@ -49,7 +49,7 @@ export default (res) => {
       .filter(callbackFilterFeed(['item']))
       .forEach(callbackAddToItems);
   });
-  console.log(feed);
+  // console.log(feed);
   countsInFeeds.countFeeds += 1;
   return feed;
 };

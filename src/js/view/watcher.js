@@ -14,7 +14,7 @@ import { countsInFeeds } from '../rss/parseRss.js';
 
 i18next.init({
   lng: 'ru',
-  debug: true,
+  debug: false,
   resources: {
     ru,
   },
@@ -37,7 +37,8 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
   switch (path) {
     case 'error': {
       if (value === null) return;
-      makeFeedbackEl('error', i18next.t(`feedback.errors.${value}`));
+      // console.log(value);
+      makeFeedbackEl('error', i18next.t(`feedback.errors.${value.message}`));
       inputEl.classList.add('is-invalid');
       break;
     }
@@ -66,9 +67,10 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
                 makeFeedbackEl('info', i18next.t('feedback.info.urlAdded'));
                 this.value = null;
                 enableInputEls();
-                console.log(this.feeds);
+                // console.log(this.feeds);
                 this.feeds.push({ id: countsInFeeds.countFeeds, feed });
-                makePostsEl(feed, {
+                console.log(this.feeds);
+                makePostsEl(appStateInit.feeds, {
                   btnText: i18next.t('buttons.posts'),
                   textPostsList: i18next.t('lists.posts'),
                   textFeedsList: i18next.t('lists.feeds'),
@@ -77,7 +79,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
               .catch((e) => {
                 this.state = 'idle';
                 // this.value = null;
-                this.error = e.message;
+                this.error = e;
                 enableInputEls();
               });
           })
@@ -91,14 +93,14 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
       break;
     }
     case 'state':
-      console.log(value);
+      // console.log(value);
       if (value === 'idle') return;
       if (value === 'pending') {
         makeFeedbackEl();
       }
       break;
     case 'feeds':
-      console.log('making list of feeds');
+      // console.log('making list of feeds');
       break;
     default:
       break;
