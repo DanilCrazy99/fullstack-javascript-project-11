@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 export default (url) => new Promise((resolve, reject) => {
-  console.log(url);
+  console.log('getRss, URL: ', url);
   const allOriginsUrl = `https://allorigins.hexlet.app/raw?disableCache=true&url=${encodeURIComponent(url)}`;
+  console.log('Prepared URL: ', allOriginsUrl);
   axios({
     method: 'get',
     url: allOriginsUrl,
