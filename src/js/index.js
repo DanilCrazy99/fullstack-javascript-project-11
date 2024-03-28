@@ -1,4 +1,3 @@
-import '../scss/styles.scss';
 import appState, { appStateInit } from './view/watcher.js';
 import { inputEl, btnEl, initFunc } from './view/components.js';
 import switcher from './lang/switcher.js';

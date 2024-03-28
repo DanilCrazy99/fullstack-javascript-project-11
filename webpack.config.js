@@ -8,9 +8,13 @@ import autoprefixer from 'autoprefixer';
 const moduleDirname = dirname(fileURLToPath(import.meta.url));
 
 export default {
-  entry: './src/js/index.js',
+  mode: 'development',
+  entry: {
+    style: './src/js/style.js',
+    index: './src/js/index.js',
+  },
   output: {
-    filename: 'main.js',
+    filename: '[name].bundle.js',
     path: resolve(moduleDirname, 'dist'),
     clean: true,
   },
