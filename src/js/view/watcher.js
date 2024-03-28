@@ -25,10 +25,17 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
   // console.log('value:', value);
   // console.log(prevValue);
   // console.log(applyData);
+  if (/feeds/.test(path)) {
+    makePostsEl(appStateInit.feeds, {
+      btnText: i18next.t('buttons.posts'),
+      textPostsList: i18next.t('lists.posts'),
+      textFeedsList: i18next.t('lists.feeds'),
+    });
+    return;
+  }
   switch (path) {
     case 'error': {
       if (value === null) return;
-      console.log(value);
       makeFeedbackEl('error', i18next.t(`feedback.errors.${value}`));
       inputEl.classList.add('is-invalid');
       break;
@@ -66,9 +73,19 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
                   url: value,
                 };
                 this.feeds.push(newFeed);
+                const feedObjInWatcher = this.feeds.find(({url: feedUrl}) => value === feedUrl);
                 // console.log(this.feeds);
-                const idFeed = Number(countsInFeeds.countFeeds);
+                // const idFeed = Number(countsInFeeds.countFeeds);
                 countsInFeeds.countFeeds += 1;
+                const timeoutCallback = () => {
+                  getRss(feedObjInWatcher.url)
+                    .then(parseRss(feedObjInWatcher.feed))
+                    .catch(console.log)
+                    .finally(() => {
+                      setTimeout(timeoutCallback, 5000);
+                    });
+                };
+                timeoutCallback();
               })
               .catch((e) => {
                 this.state = 'idle';
@@ -93,14 +110,6 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
         makeFeedbackEl();
       }
       break;
-    case 'feeds': {
-      makePostsEl(appStateInit.feeds, {
-        btnText: i18next.t('buttons.posts'),
-        textPostsList: i18next.t('lists.posts'),
-        textFeedsList: i18next.t('lists.feeds'),
-      });
-      break;
-    }
     default:
       break;
   }
