@@ -9,14 +9,14 @@ export default {
     },
     feedback: {
       errors: {
-        doubleUrl: 'В списке уже есть такой URL',
-        invalidUrl: 'Некорректный URL',
-        nullValue: 'URL не должен быть пустым',
+        doubleUrl: 'RSS уже существует',
+        invalidUrl: 'Ссылка должна быть валидным URL',
+        nullValue: 'Не должно быть пустым',
         'Network Error': 'Ошибка сети',
-        emptyRss: 'На сайте отсутствует RSS лента',
+        emptyRss: 'Ресурс не содержит валидный RSS',
       },
       info: {
-        urlAdded: 'URL успешно добавлен',
+        urlAdded: 'URL успешно загружен',
       },
     },
     lists: {
