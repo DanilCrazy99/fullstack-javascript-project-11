@@ -2,6 +2,8 @@ import i18next from 'i18next';
 import ru from './ru.js';
 import jp from './jp.js';
 import en from './en.js';
+import { makePostsEl } from '../view/components.js';
+import { appStateInit } from '../view/watcher.js';
 
 const headerEl = document.getElementById('header');
 const descriptionEl = document.getElementById('description');
@@ -31,6 +33,13 @@ const switchLanguage = () => {
   inputEl.setAttribute('placeholder', i18next.t('main.inputPlaceholder'));
   btnInputEl.textContent = i18next.t('main.submit');
   exampleEl.textContent = i18next.t('main.example');
+  if (appStateInit.feeds.length > 0) {
+    makePostsEl(appStateInit.feeds, {
+      btnText: i18next.t('buttons.posts'),
+      textPostsList: i18next.t('lists.posts'),
+      textFeedsList: i18next.t('lists.feeds'),
+    });
+  }
 };
 
 [lngEnEl, lngJpEl, lngRuEl].forEach((btn) => {
