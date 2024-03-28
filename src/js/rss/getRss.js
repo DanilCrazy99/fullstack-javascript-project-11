@@ -1,5 +1,4 @@
 import axios from 'axios';
-import parseRss from './parseRss.js';
 
 export default (url) => new Promise((resolve, reject) => {
   const allOriginsUrl = `https://allorigins.hexlet.app/raw?disableCache=true&url=${encodeURIComponent(url)}`;
@@ -9,10 +8,10 @@ export default (url) => new Promise((resolve, reject) => {
     responseType: 'text',
   })
     .then((res) => {
-      console.log(res);
-      const result = parseRss(res);
-      if (Object.keys(result.feed).length === 0) reject(new Error('emptyRss'));
-      resolve(result);
+      // const result = parseRss(res);
+      // console.log(result);
+      // if (Object.keys(result.feed).length === 0) reject(new Error('emptyRss'));
+      resolve(res);
     })
     .catch(reject);
 });
