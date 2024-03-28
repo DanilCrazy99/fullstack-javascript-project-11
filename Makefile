@@ -18,3 +18,6 @@ buildproxy:
 
 serveproxy:
 	make -j 2 serve proxy
+
+test:
+	npx playwright test
