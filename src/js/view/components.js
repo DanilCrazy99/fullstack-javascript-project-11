@@ -24,18 +24,20 @@ export const initFunc = (feeds) => {
     // console.log(feeds);
     // console.log(e.relatedTarget.dataset.id);
     const postId = Number(e.relatedTarget.dataset.id);
+    e.relatedTarget.previousSibling.classList.replace('fw-bold', 'fw-normal');
+    e.relatedTarget.previousSibling.classList.add('link-secondary');
     // console.log(postId);
     const item = feeds.find(({ feed }) => {
       const { ids } = feed;
       // console.log(feed);
       if (ids.includes(postId)) return true;
+      return false;
     });
     const { title, description } = item.feed.items.find(
       ({ id }) => id === postId,
     );
     modalTitle.textContent = title;
     modalBody.textContent = description;
-    // modalTitle.textContent =
   });
 };
 
@@ -87,7 +89,7 @@ export const makePostsEl = (feeds, options) => {
         'justify-content-between',
         'align-items-start',
         'border-0',
-        'border-end-0'
+        'border-end-0',
       );
 
       const aEl = document.createElement('a');
@@ -155,33 +157,4 @@ export const makePostsEl = (feeds, options) => {
       ${createListFeeds(allFeeds).outerHTML}
     </div>
   </div>`;
-};
-
-export const makeModal = ({
-  closeBtn = 'Закрыть',
-  openBtn = 'Читать полностью',
-}) => {
-  const modalContainerEl = document.createElement('div');
-  modalContainerEl.classList.add('modal', 'fade');
-  modalContainerEl.setAttribute('id', 'modal');
-  modalContainerEl.setAttribute('tabindex', '-1');
-  modalContainerEl.setAttribute('aria-labelledby', 'exampleModalLabel');
-  modalContainerEl.setAttribute('aria-hidden', 'true');
-
-  modalContainerEl.innerHTML = `
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitle"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="modalBody">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${closeBtn}</button>
-        <button type="button" class="btn btn-primary">${openBtn}</button>
-      </div>
-    </div>
-  </div>`;
-  return modalContainerEl;
 };
