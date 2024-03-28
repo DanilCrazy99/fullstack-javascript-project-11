@@ -75,7 +75,7 @@ export const makePostsEl = (feeds, options) => {
   const allPosts = feeds.map(({ feed }) => feed.items).flat();
 
   const allFeeds = feeds.map(({ feed }) => feed.feed).flat();
-  console.log('createListPosts: ', allFeeds);
+  // console.log('createListPosts: ', allFeeds);
 
   const createListPosts = (posts) => {
     const ulEl = document.createElement('ul');

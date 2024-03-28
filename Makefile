@@ -1,6 +1,9 @@
 install:
 	npm i
 
+lint:
+	eslint .
+
 build:
 	npx webpack
 

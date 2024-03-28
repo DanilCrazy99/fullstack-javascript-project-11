@@ -9,7 +9,7 @@ proxyServer
     requireHeader: ['origin', 'x-requested-with'],
     removeHeaders: ['cookie', 'cookie2'],
   })
-  .listen(port, host, function () {
-    console.log('Running CORS Anywhere on ' + host + ':' + port);
+  .listen(port, host, () => {
+    console.log('Running CORS Anywhere on ', host, ':', port);
   })
   .setMaxListeners(10);

@@ -73,7 +73,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
                   url: value,
                 };
                 this.feeds.push(newFeed);
-                const feedObjInWatcher = this.feeds.find(({url: feedUrl}) => value === feedUrl);
+                const feedObjInWatcher = this.feeds.find(({ url: feedUrl }) => value === feedUrl);
                 // console.log(this.feeds);
                 // const idFeed = Number(countsInFeeds.countFeeds);
                 countsInFeeds.countFeeds += 1;

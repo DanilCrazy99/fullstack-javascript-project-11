@@ -24,14 +24,13 @@ export default (
   // Добавляет значения тегов в объект feed
   const callbackAddToFeedObj = ([, value]) => {
     const { tagName } = value;
+    // eslint-disable-next-line no-param-reassign
     feedObj.feed[tagName] = value.textContent;
   };
   // Создаёт объект поста с описанием, названием и link и возвращает его
   const callbackMakeItemObj = ([, value]) => {
     const itemObj = {};
-    const item = Object.entries(value.children).filter(
-      callbackFilterFeed(['description', 'link', 'title'])
-    );
+    const item = Object.entries(value.children).filter(callbackFilterFeed(['description', 'link', 'title']));
     item.forEach(([, value1]) => {
       if (['description', 'link', 'title'].includes(value1.tagName)) {
         itemObj[value1.tagName] = value1.textContent;
