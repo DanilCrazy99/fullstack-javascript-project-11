@@ -9,7 +9,7 @@ import {
   enableInputEls,
   makePostsEl,
 } from './components.js';
-import { countsInFeeds } from '../rss/parseRss.js';
+import parseRss, { countsInFeeds } from '../rss/parseRss.js';
 
 export const appStateInit = {
   value: null,
@@ -53,19 +53,22 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
           .then((result) => {
             inputEl.classList.remove('is-invalid');
             getRss(result)
+              .then(parseRss())
               .then((feed) => {
                 this.urls.push(value);
                 makeFeedbackEl('info', i18next.t('feedback.info.urlAdded'));
                 this.value = null;
                 enableInputEls();
                 // console.log(this.feeds);
-                this.feeds.push({ id: countsInFeeds.countFeeds, feed });
-                console.log(this.feeds);
-                makePostsEl(appStateInit.feeds, {
-                  btnText: i18next.t('buttons.posts'),
-                  textPostsList: i18next.t('lists.posts'),
-                  textFeedsList: i18next.t('lists.feeds'),
-                });
+                const newFeed = {
+                  id: countsInFeeds.countFeeds,
+                  feed,
+                  url: value,
+                };
+                this.feeds.push(newFeed);
+                // console.log(this.feeds);
+                const idFeed = Number(countsInFeeds.countFeeds);
+                countsInFeeds.countFeeds += 1;
               })
               .catch((e) => {
                 this.state = 'idle';
@@ -90,9 +93,14 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
         makeFeedbackEl();
       }
       break;
-    case 'feeds':
-      // console.log('making list of feeds');
+    case 'feeds': {
+      makePostsEl(appStateInit.feeds, {
+        btnText: i18next.t('buttons.posts'),
+        textPostsList: i18next.t('lists.posts'),
+        textFeedsList: i18next.t('lists.feeds'),
+      });
       break;
+    }
     default:
       break;
   }
