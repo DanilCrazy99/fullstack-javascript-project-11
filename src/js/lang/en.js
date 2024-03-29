@@ -16,7 +16,7 @@ export default {
         emptyRss: 'RSS not exists on that URL',
       },
       info: {
-        urlAdded: 'URL successfuly added',
+        urlAdded: 'RSS successfuly added',
       },
     },
     lists: {

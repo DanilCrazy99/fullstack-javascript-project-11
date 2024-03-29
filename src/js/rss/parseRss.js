@@ -15,7 +15,7 @@ export default (
   // console.log(feedObj);
   // console.log(objXML);
   // const objXML = JSON.parse(res.data);
-  const parsedDOM = parser.parseFromString(res.data, 'text/xml');
+  const parsedDOM = parser.parseFromString(res, 'text/xml');
   // console.log(parsedDOM);
   // console.log(parsedDOM);
   // document.body.innerHTML = parsedDOM.children[0].children[0].innerHTML;

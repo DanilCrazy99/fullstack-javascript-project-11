@@ -16,7 +16,7 @@ export default {
         emptyRss: 'サイトには RSS フィードがありません',
       },
       info: {
-        urlAdded: 'URLが正常に追加されました',
+        urlAdded: 'RSSが正常に追加されました',
       },
     },
     lists: {

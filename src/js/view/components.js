@@ -41,7 +41,7 @@ export const initFunc = (feeds) => {
   });
 };
 
-export const makeFeedbackEl = (type, msg) => {
+export const makeFeedbackEl = (type, msg = '') => {
   feedBackEl.textContent = msg;
   switch (type) {
     case 'error':

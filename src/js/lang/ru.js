@@ -16,7 +16,7 @@ export default {
         emptyRss: 'Ресурс не содержит валидный RSS',
       },
       info: {
-        urlAdded: 'URL успешно загружен',
+        urlAdded: 'RSS успешно загружен',
       },
     },
     lists: {

@@ -46,6 +46,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
         inputEl.focus();
         return;
       }
+      makeFeedbackEl();
       if (this.urls.includes(value)) {
         this.error = 'doubleUrl';
       } else {
