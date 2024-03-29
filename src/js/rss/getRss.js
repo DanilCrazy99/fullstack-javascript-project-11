@@ -17,7 +17,7 @@ export default (url) => new Promise((resolve, reject) => {
       resolve(res);
     })
     .catch((e) => {
-      console.log(e);
-      reject(e)
+      console.log(e.toJSON());
+      reject(e);
     });
 });
