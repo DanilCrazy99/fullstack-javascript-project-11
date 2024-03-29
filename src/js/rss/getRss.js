@@ -16,5 +16,8 @@ export default (url) => new Promise((resolve, reject) => {
       console.log(res);
       resolve(res);
     })
-    .catch(reject);
+    .catch((e) => {
+      console.log(e);
+      reject(e)
+    });
 });
