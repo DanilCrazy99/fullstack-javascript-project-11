@@ -21,10 +21,6 @@ export const appStateInit = {
 };
 
 export default onChange(appStateInit, function cbWatcher(path, value) {
-  // console.log('path:', path);
-  // console.log('value:', value);
-  // console.log(prevValue);
-  // console.log(applyData);
   if (/feeds/.test(path)) {
     makePostsEl(appStateInit.feeds, {
       btnText: i18next.t('buttons.posts'),
@@ -35,7 +31,10 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
   }
   switch (path) {
     case 'error': {
-      if (value === null) return;
+      if (value === null) {
+        makeFeedbackEl();
+        return;
+      }
       makeFeedbackEl('error', i18next.t(`feedback.errors.${value}`));
       inputEl.classList.add('is-invalid');
       break;
@@ -46,11 +45,11 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
         inputEl.focus();
         return;
       }
-      makeFeedbackEl();
       if (this.urls.includes(value)) {
         this.error = 'doubleUrl';
       } else {
         disableInputEls();
+        this.error = null;
         userScheme
           .validate({ value })
           .then(() => {
@@ -67,16 +66,15 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
                 makeFeedbackEl('info', i18next.t('feedback.info.urlAdded'));
                 this.value = null;
                 enableInputEls();
-                // console.log(this.feeds);
                 const newFeed = {
                   id: countsInFeeds.countFeeds,
                   feed,
                   url: value,
                 };
                 this.feeds.push(newFeed);
-                const feedObjInWatcher = this.feeds.find(({ url: feedUrl }) => value === feedUrl);
-                // console.log(this.feeds);
-                // const idFeed = Number(countsInFeeds.countFeeds);
+                const feedObjInWatcher = this.feeds.find(
+                  ({ url: feedUrl }) => value === feedUrl
+                );
                 countsInFeeds.countFeeds += 1;
                 const timeoutCallback = () => {
                   getRss(feedObjInWatcher.url)
@@ -90,14 +88,12 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
               })
               .catch((e) => {
                 this.state = 'idle';
-                // this.value = null;
                 this.error = e.message;
                 enableInputEls();
               });
           })
           .catch((e) => {
             this.state = 'idle';
-            // this.value = null;
             this.error = e.message;
             enableInputEls();
           });
@@ -105,7 +101,6 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
       break;
     }
     case 'state':
-      // console.log(value);
       if (value === 'idle') return;
       if (value === 'pending') {
         makeFeedbackEl();
