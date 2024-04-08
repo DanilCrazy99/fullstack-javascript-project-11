@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import { i18nInstance } from '../lang/switcher.js';
+import i18nInstance from '../lang/initLang.js';
 import userScheme from '../utils/validation.js';
 import getRss from '../rss/getRss.js';
 import {
@@ -22,11 +22,7 @@ export const appStateInit = {
 
 export default onChange(appStateInit, function cbWatcher(path, value) {
   if (/feeds/.test(path)) {
-    makePostsEl(appStateInit.feeds, {
-      btnText: i18nInstance.t('buttons.posts'),
-      textPostsList: i18nInstance.t('lists.posts'),
-      textFeedsList: i18nInstance.t('lists.feeds'),
-    });
+    makePostsEl(appStateInit.feeds);
     return;
   }
   switch (path) {
@@ -72,9 +68,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
                   url: value,
                 };
                 this.feeds.push(newFeed);
-                const feedObjInWatcher = this.feeds.find(
-                  ({ url: feedUrl }) => value === feedUrl
-                );
+                const feedObjInWatcher = this.feeds.find(({ url: feedUrl }) => value === feedUrl);
                 countsInFeeds.countFeeds += 1;
                 const timeoutCallback = () => {
                   getRss(feedObjInWatcher.url)

@@ -1,5 +1,5 @@
 import { Modal } from 'bootstrap';
-import { i18nInstance } from '../lang/switcher.js';
+import i18nInstance from '../lang/initLang.js';
 
 export const btnEl = document.getElementById('btn-input');
 export const infoBlock = document.getElementById('info-block');
@@ -10,64 +10,17 @@ export const mainEl = document.getElementsByTagName('main');
 export const modalEl = document.getElementById('modal');
 const modalTitle = document.getElementById('modal-title');
 const modalBody = document.getElementById('modal-body');
+const headerEl = document.getElementById('header');
+const descriptionEl = document.getElementById('description');
+const exampleEl = document.getElementById('input-example');
+
+const lngRuEl = document.getElementById('lng_ru');
+const lngEnEl = document.getElementById('lng_en');
+const lngJpEl = document.getElementById('lng_jp');
+
 const bootstrapEls = {};
 
-export const initFunc = (feeds) => {
-  bootstrapEls.modal = new Modal(modalEl);
-  const btnOpenEl = document.getElementById('btn-modal-open');
-  const btnCloseEl = document.getElementById('btn-modal-close');
-
-  btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
-  btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
-
-  modalEl.addEventListener('show.bs.modal', (e) => {
-    const postId = Number(e.relatedTarget.dataset.id);
-    e.relatedTarget.previousSibling.classList.replace('fw-bold', 'fw-normal');
-    e.relatedTarget.previousSibling.classList.add('link-secondary');
-    const item = feeds.find(({ feed }) => {
-      const { ids } = feed;
-      if (ids.includes(postId)) return true;
-      return false;
-    });
-    const { title, description } = item.feed.items.find(
-      ({ id }) => id === postId,
-    );
-    modalTitle.textContent = title;
-    modalBody.textContent = description;
-  });
-};
-
-export const makeFeedbackEl = (type, msg = '') => {
-  feedBackEl.textContent = msg;
-  switch (type) {
-    case 'error':
-      feedBackEl.className = 'text-danger m-0';
-      break;
-    case 'info':
-      feedBackEl.className = 'text-success m-0';
-      break;
-    default:
-      break;
-  }
-};
-
-export const disableInputEls = () => {
-  btnEl.classList.add('disabled');
-  inputEl.setAttribute('disabled', 'disabled');
-};
-
-export const enableInputEls = () => {
-  btnEl.classList.remove('disabled');
-  inputEl.removeAttribute('disabled', 'disabled');
-};
-
-export const makePostsEl = (feeds, options) => {
-  const {
-    btnText = 'Просмотр',
-    textPostsList = 'Посты',
-    textFeedsList = 'Фиды',
-  } = options;
-
+export const makePostsEl = (feeds) => {
   const allPosts = feeds.map(({ feed }) => feed.items).flat();
 
   const allFeeds = feeds.map(({ feed }) => feed.feed).flat();
@@ -99,7 +52,7 @@ export const makePostsEl = (feeds, options) => {
       btnPostEl.classList.add('btn', 'btn-outline-primary', 'btn-sm');
       btnPostEl.setAttribute('type', 'button');
       btnPostEl.setAttribute('data-id', post.id);
-      btnPostEl.textContent = btnText;
+      btnPostEl.textContent = i18nInstance.t('buttons.posts');
       btnPostEl.setAttribute('data-bs-toggle', 'modal');
       btnPostEl.setAttribute('data-bs-target', '#modal');
 
@@ -139,7 +92,7 @@ export const makePostsEl = (feeds, options) => {
   <div class="col-md-10 col-lg-8 order-1 mx-auto posts">
     <div class="card border-0">
     <div class="card-body">
-    <h2 class="card-title h4">${textPostsList}</h2>
+    <h2 class="card-title h4">${i18nInstance.t('lists.posts')}</h2>
     </div>
     ${createListPosts(allPosts).outerHTML}
     </div>
@@ -147,9 +100,75 @@ export const makePostsEl = (feeds, options) => {
   <div class="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds">
     <div class='card border-0'>
       <div class='card-body'>
-        <h2 class='card-title h4'>${textFeedsList}</h2>
+        <h2 class='card-title h4'>${i18nInstance.t('lists.feeds')}</h2>
       </div>
       ${createListFeeds(allFeeds).outerHTML}
     </div>
   </div>`;
+};
+
+export const initFunc = (feeds) => {
+  bootstrapEls.modal = new Modal(modalEl);
+  const btnOpenEl = document.getElementById('btn-modal-open');
+  const btnCloseEl = document.getElementById('btn-modal-close');
+
+  btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
+  btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
+
+  modalEl.addEventListener('show.bs.modal', (e) => {
+    const postId = Number(e.relatedTarget.dataset.id);
+    e.relatedTarget.previousSibling.classList.replace('fw-bold', 'fw-normal');
+    e.relatedTarget.previousSibling.classList.add('link-secondary');
+    const item = feeds.find(({ feed }) => {
+      const { ids } = feed;
+      if (ids.includes(postId)) return true;
+      return false;
+    });
+    const { title, description } = item.feed.items.find(({ id }) => id === postId);
+    modalTitle.textContent = title;
+    modalBody.textContent = description;
+  });
+  const switchLanguage = () => {
+    btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
+    btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
+    headerEl.textContent = i18nInstance.t('main.header');
+    descriptionEl.textContent = i18nInstance.t('main.description');
+    inputEl.setAttribute(
+      'placeholder',
+      i18nInstance.t('main.inputPlaceholder'),
+    );
+    btnEl.textContent = i18nInstance.t('main.submit');
+    exampleEl.textContent = i18nInstance.t('main.example');
+  };
+
+  [lngEnEl, lngJpEl, lngRuEl].forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      i18nInstance.changeLanguage(e.target.dataset.lng);
+      switchLanguage();
+    });
+  });
+};
+
+export const makeFeedbackEl = (type, msg = '') => {
+  feedBackEl.textContent = msg;
+  switch (type) {
+    case 'error':
+      feedBackEl.className = 'text-danger m-0';
+      break;
+    case 'info':
+      feedBackEl.className = 'text-success m-0';
+      break;
+    default:
+      break;
+  }
+};
+
+export const disableInputEls = () => {
+  btnEl.classList.add('disabled');
+  inputEl.setAttribute('disabled', 'disabled');
+};
+
+export const enableInputEls = () => {
+  btnEl.classList.remove('disabled');
+  inputEl.removeAttribute('disabled', 'disabled');
 };
