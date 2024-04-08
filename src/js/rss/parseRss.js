@@ -14,7 +14,7 @@ export default (feedObjPattern = {
 
   const feedTitle = parsedDOM.querySelector('channel title').textContent;
   const feedDescription = parsedDOM.querySelector(
-    'channel description'
+    'channel description',
   ).textContent;
   const feedLink = parsedDOM.querySelector('channel link').textContent;
   const feedInfo = {
