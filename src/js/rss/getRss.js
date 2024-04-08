@@ -4,6 +4,7 @@ const makeUrl = (url) => {
   const allOriginsUrl = new URL('https://allorigins.hexlet.app/get');
   allOriginsUrl.searchParams.append('disableCache', true);
   allOriginsUrl.searchParams.append('url', url);
+  return allOriginsUrl;
 };
 
 export default (url) => new Promise((resolve, reject) => {
