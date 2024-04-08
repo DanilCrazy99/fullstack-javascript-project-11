@@ -1,12 +1,16 @@
 import axios from 'axios';
 
-export default (url) => new Promise((resolve, reject) => {
+const makeUrl = (url) => {
   const allOriginsUrl = new URL('https://allorigins.hexlet.app/get');
   allOriginsUrl.searchParams.append('disableCache', true);
   allOriginsUrl.searchParams.append('url', url);
+};
+
+export default (url) => new Promise((resolve, reject) => {
+  const preparedUrl = makeUrl(url);
   axios({
     method: 'get',
-    url: allOriginsUrl,
+    url: preparedUrl,
     responseType: 'text',
   })
     .then((res) => {
