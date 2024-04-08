@@ -1,5 +1,5 @@
 import { Modal } from 'bootstrap';
-import i18next from 'i18next';
+import { i18nInstance } from '../lang/switcher.js';
 
 export const btnEl = document.getElementById('btn-input');
 export const infoBlock = document.getElementById('info-block');
@@ -17,19 +17,15 @@ export const initFunc = (feeds) => {
   const btnOpenEl = document.getElementById('btn-modal-open');
   const btnCloseEl = document.getElementById('btn-modal-close');
 
-  btnOpenEl.textContent = i18next.t('modal.openBtn');
-  btnCloseEl.textContent = i18next.t('modal.closeBtn');
+  btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
+  btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
 
   modalEl.addEventListener('show.bs.modal', (e) => {
-    // console.log(feeds);
-    // console.log(e.relatedTarget.dataset.id);
     const postId = Number(e.relatedTarget.dataset.id);
     e.relatedTarget.previousSibling.classList.replace('fw-bold', 'fw-normal');
     e.relatedTarget.previousSibling.classList.add('link-secondary');
-    // console.log(postId);
     const item = feeds.find(({ feed }) => {
       const { ids } = feed;
-      // console.log(feed);
       if (ids.includes(postId)) return true;
       return false;
     });
@@ -75,7 +71,6 @@ export const makePostsEl = (feeds, options) => {
   const allPosts = feeds.map(({ feed }) => feed.items).flat();
 
   const allFeeds = feeds.map(({ feed }) => feed.feed).flat();
-  // console.log('createListPosts: ', allFeeds);
 
   const createListPosts = (posts) => {
     const ulEl = document.createElement('ul');
