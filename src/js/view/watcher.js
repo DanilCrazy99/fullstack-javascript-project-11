@@ -1,5 +1,5 @@
 import onChange from 'on-change';
-import i18next from 'i18next';
+import { i18nInstance } from '../lang/switcher.js';
 import userScheme from '../utils/validation.js';
 import getRss from '../rss/getRss.js';
 import {
@@ -23,9 +23,9 @@ export const appStateInit = {
 export default onChange(appStateInit, function cbWatcher(path, value) {
   if (/feeds/.test(path)) {
     makePostsEl(appStateInit.feeds, {
-      btnText: i18next.t('buttons.posts'),
-      textPostsList: i18next.t('lists.posts'),
-      textFeedsList: i18next.t('lists.feeds'),
+      btnText: i18nInstance.t('buttons.posts'),
+      textPostsList: i18nInstance.t('lists.posts'),
+      textFeedsList: i18nInstance.t('lists.feeds'),
     });
     return;
   }
@@ -35,7 +35,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
         makeFeedbackEl();
         return;
       }
-      makeFeedbackEl('error', i18next.t(`feedback.errors.${value}`));
+      makeFeedbackEl('error', i18nInstance.t(`feedback.errors.${value}`));
       inputEl.classList.add('is-invalid');
       break;
     }
@@ -63,7 +63,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
               .then(parseRss())
               .then((feed) => {
                 this.urls.push(value);
-                makeFeedbackEl('info', i18next.t('feedback.info.urlAdded'));
+                makeFeedbackEl('info', i18nInstance.t('feedback.info.urlAdded'));
                 this.value = null;
                 enableInputEls();
                 const newFeed = {
