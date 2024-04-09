@@ -11,7 +11,7 @@ export default (feedObjPattern = {
   const feedObj = { ...feedObjPattern };
   const parser = new DOMParser();
   const parsedDOM = parser.parseFromString(res, 'text/xml');
-
+  if (!parsedDOM.querySelector('channel title')) reject(new Error('emptyRss'));
   const feedTitle = parsedDOM.querySelector('channel title').textContent;
   const feedDescription = parsedDOM.querySelector(
     'channel description',
