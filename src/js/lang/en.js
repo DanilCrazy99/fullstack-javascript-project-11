@@ -30,5 +30,10 @@ export default {
       closeBtn: 'Close',
       openBtn: 'Read the full post',
     },
+    lng: {
+      ru: 'Русский',
+      en: 'English',
+      jp: '日本語',
+    },
   },
 };

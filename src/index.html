@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,9 +20,9 @@
     <meta property="og:image:width" content="968" />
     <meta property="og:image:height" content="504" />
     <meta property="og:image" content="/src/assets/pict/rsspicture.jpg" />
-    <title>RSS Агрегатор - Читать RSS ленты легко и просто</title>
+    <title id="title"></title>
   </head>
-  <body class="d-flex flex-column h-100">
+  <body class="d-flex flex-column min-h-100">
     <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -42,12 +42,12 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
               id="btn-modal-close"
-            >
-              Закрыть
-            </button>
-            <button type="button" class="btn btn-primary" id="btn-modal-open">
-              Читать полностью
-            </button>
+            ></button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="btn-modal-open"
+            ></button>
           </div>
         </div>
       </div>
@@ -56,13 +56,23 @@
       <section class="container-fluid bg-dark text-white p-xl-5 p-4">
         <div class="row">
           <div class="col-md-10 col-lg-8 mx-auto">
-            <button class="btn btn-outline-primary" id="lng_ru" data-lng="ru">Русский</button>
-            <button class="btn btn-outline-primary" id="lng_en" data-lng="en">English</button>
-            <button class="btn btn-outline-primary" id="lng_jp" data-lng="jp">日本語</button>
-            <h1 class="display-3" id="header">RSS агрегатор</h1>
-            <p class="lead" id="description">
-              Начните читать RSS сегодня! Это легко, это красиво.
-            </p>
+            <button
+              class="btn btn-outline-primary"
+              id="lng_ru"
+              data-lng="ru"
+            ></button>
+            <button
+              class="btn btn-outline-primary"
+              id="lng_en"
+              data-lng="en"
+            ></button>
+            <button
+              class="btn btn-outline-primary"
+              id="lng_jp"
+              data-lng="jp"
+            ></button>
+            <h1 class="display-3" id="header"></h1>
+            <p class="lead" id="description"></p>
             <form class="col d-flex">
               <input
                 type="text"
@@ -79,17 +89,13 @@
                 class="btn btn-primary ms-3"
                 id="btn-input"
                 aria-label="Добавить ссылку в список"
-              >
-                Добавить
-              </button>
+              ></button>
             </form>
             <p
               class="text-white-50 m-0"
               id="input-example"
               aria-label="Пример url ссылки с RSS лентой"
-            >
-              Пример: https://lorem-rss.hexlet.app/feed
-            </p>
+            ></p>
 
             <p class="text-success m-0" id="feedback"></p>
           </div>

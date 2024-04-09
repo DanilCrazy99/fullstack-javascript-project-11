@@ -31,7 +31,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
         makeFeedbackEl();
         return;
       }
-      makeFeedbackEl('error', i18nInstance.t(`feedback.errors.${value}`));
+      makeFeedbackEl('error', `feedback.errors.${value}`);
       inputEl.classList.add('is-invalid');
       break;
     }
@@ -59,7 +59,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
               .then(parseRss())
               .then((feed) => {
                 this.urls.push(value);
-                makeFeedbackEl('info', i18nInstance.t('feedback.info.urlAdded'));
+                makeFeedbackEl('info', 'feedback.info.urlAdded');
                 this.value = null;
                 enableInputEls();
                 const newFeed = {

@@ -30,5 +30,10 @@ export default {
       closeBtn: 'Закрыть',
       openBtn: 'Читать полностью',
     },
+    lng: {
+      ru: 'Русский',
+      en: 'English',
+      jp: '日本語',
+    },
   },
 };

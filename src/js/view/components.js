@@ -18,6 +18,8 @@ const lngRuEl = document.getElementById('lng_ru');
 const lngEnEl = document.getElementById('lng_en');
 const lngJpEl = document.getElementById('lng_jp');
 
+const headTitle = document.getElementById('title');
+
 const bootstrapEls = {};
 
 export const makePostsEl = (feeds) => {
@@ -97,12 +99,12 @@ export const makePostsEl = (feeds) => {
     ${createListPosts(allPosts).outerHTML}
     </div>
     </div>
-  <div class="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds">
+    <div class="col-md-10 col-lg-4 mx-auto order-0 order-lg-1 feeds">
     <div class='card border-0'>
       <div class='card-body'>
         <h2 class='card-title h4'>${i18nInstance.t('lists.feeds')}</h2>
-      </div>
-      ${createListFeeds(allFeeds).outerHTML}
+        </div>
+        ${createListFeeds(allFeeds).outerHTML}
     </div>
   </div>`;
 };
@@ -112,8 +114,16 @@ export const initFunc = (feeds) => {
   const btnOpenEl = document.getElementById('btn-modal-open');
   const btnCloseEl = document.getElementById('btn-modal-close');
 
+  lngRuEl.textContent = i18nInstance.t('lng.ru');
+  lngEnEl.textContent = i18nInstance.t('lng.en');
+  lngJpEl.textContent = i18nInstance.t('lng.jp');
   btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
   btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
+  headTitle.textContent = i18nInstance.t('main.description');
+  headerEl.textContent = i18nInstance.t('main.header');
+  descriptionEl.textContent = i18nInstance.t('main.description');
+  btnEl.textContent = i18nInstance.t('main.submit');
+  exampleEl.textContent = i18nInstance.t('main.example');
 
   modalEl.addEventListener('show.bs.modal', (e) => {
     const postId = Number(e.relatedTarget.dataset.id);
@@ -129,10 +139,12 @@ export const initFunc = (feeds) => {
     modalBody.textContent = description;
   });
   const switchLanguage = () => {
+    headTitle.textContent = i18nInstance.t('main.description');
     btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
     btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
     headerEl.textContent = i18nInstance.t('main.header');
     descriptionEl.textContent = i18nInstance.t('main.description');
+
     inputEl.setAttribute(
       'placeholder',
       i18nInstance.t('main.inputPlaceholder'),
@@ -140,7 +152,6 @@ export const initFunc = (feeds) => {
     btnEl.textContent = i18nInstance.t('main.submit');
     exampleEl.textContent = i18nInstance.t('main.example');
   };
-
   [lngEnEl, lngJpEl, lngRuEl].forEach((btn) => {
     btn.addEventListener('click', (e) => {
       i18nInstance.changeLanguage(e.target.dataset.lng);

@@ -30,5 +30,10 @@ export default {
       closeBtn: '近い',
       openBtn: '続きを読む',
     },
+    lng: {
+      ru: 'Русский',
+      en: 'English',
+      jp: '日本語',
+    },
   },
 };
