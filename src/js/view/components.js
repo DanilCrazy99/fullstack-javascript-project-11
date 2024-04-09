@@ -149,8 +149,8 @@ export const initFunc = (feeds) => {
   });
 };
 
-export const makeFeedbackEl = (type, msg = '') => {
-  feedBackEl.textContent = msg;
+export const makeFeedbackEl = (type, msg = null) => {
+  feedBackEl.textContent = i18nInstance.t(msg);
   switch (type) {
     case 'error':
       feedBackEl.className = 'text-danger m-0';
