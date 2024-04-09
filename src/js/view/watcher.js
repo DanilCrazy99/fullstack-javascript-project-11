@@ -1,5 +1,4 @@
 import onChange from 'on-change';
-import i18nInstance from '../lang/initLang.js';
 import userScheme from '../utils/validation.js';
 import getRss from '../rss/getRss.js';
 import {
