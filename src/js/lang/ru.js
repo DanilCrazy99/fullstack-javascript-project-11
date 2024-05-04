@@ -10,7 +10,7 @@ export default {
     main: {
       aria: {
         'btn-input': 'Добавить ссылку в список для чтения',
-        'url-input': 'Ввод url ссылки RSS ленты',
+        'url-input': 'url',
         example: 'Пример url ссылки с RSS лентой',
         creator: 'Ссылка на страницу создателя страницы - VolkovDani',
       },
