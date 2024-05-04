@@ -1,14 +1,14 @@
 /* eslint-disable no-param-reassign */
 import onChange from 'on-change';
 import userScheme from '../utils/validation.js';
-import getRss from '../rss/getRss.js';
+import getRss from '../network/getRss.js';
 import {
   makeFeedbackEl,
   disableInputEls,
   enableInputEls,
   makePostsEl,
 } from './components.js';
-import parseRss, { countsInFeeds } from '../rss/parseRss.js';
+import parseRss, { countsInFeeds } from '../utils/parseRss.js';
 
 export const appStateInit = {
   value: null,
