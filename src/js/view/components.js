@@ -109,10 +109,32 @@ export const makePostsEl = (feeds) => {
   </div>`;
 };
 
+const createMetaElement = (property, content) => {
+  const element = document.createElement('meta');
+  element.setAttribute('property', property);
+  element.setAttribute('content', content);
+  return element;
+};
+
 export const initFunction = (feeds, appState) => {
   bootstrapEls.modal = new Modal(modalEl);
   const btnOpenEl = document.getElementById('btn-modal-open');
   const btnCloseEl = document.getElementById('btn-modal-close');
+  const btnCloseCrossEl = document.getElementById('btn-modal-close-cross');
+
+  btnOpenEl.ariaLabel = i18nInstance.t('modal.aria.openBtn');
+  btnCloseEl.ariaLabel = i18nInstance.t('modal.aria.closeBtn');
+  btnCloseCrossEl.ariaLabel = i18nInstance.t('modal.aria.closeBtn');
+
+  document.documentElement.setAttribute('lang', i18nInstance.t('meta.lang'));
+
+  const headEl = document.head;
+
+  const metaLocale = createMetaElement('og:locale', i18nInstance.t('meta.locale'));
+  const metaLanguage = createMetaElement('og:title', i18nInstance.t('meta.lang'));
+  const metaUrl = createMetaElement('og:url', i18nInstance.t('meta.url'));
+
+  headEl.append(metaLocale, metaLanguage, metaUrl);
 
   lngRuEl.textContent = i18nInstance.t('lng.ru');
   lngEnEl.textContent = i18nInstance.t('lng.en');
