@@ -147,6 +147,10 @@ export const initFunction = (feeds, appState) => {
   btnEl.textContent = i18nInstance.t('main.submit');
   exampleEl.textContent = i18nInstance.t('main.example');
 
+  lngRuEl.ariaLabel = i18nInstance.t('lng.aria.ru');
+  lngEnEl.ariaLabel = i18nInstance.t('lng.aria.en');
+  lngJpEl.ariaLabel = i18nInstance.t('lng.aria.jp');
+
   btnEl.addEventListener('click', (e) => {
     e.preventDefault();
     appState.value = inputEl.value;

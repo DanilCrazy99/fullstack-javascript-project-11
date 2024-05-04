@@ -42,6 +42,11 @@ export default {
       openBtn: 'Читать полностью',
     },
     lng: {
+      aria: {
+        ru: 'Переключить на Русский',
+        en: 'Change language to English',
+        jp: 'Change language to Japanese',
+      },
       ru: 'Русский',
       en: 'English',
       jp: '日本語',
