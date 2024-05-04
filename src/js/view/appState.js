@@ -1,8 +1,8 @@
+/* eslint-disable no-param-reassign */
 import onChange from 'on-change';
 import userScheme from '../utils/validation.js';
 import getRss from '../rss/getRss.js';
 import {
-  inputEl,
   makeFeedbackEl,
   disableInputEls,
   enableInputEls,
@@ -19,7 +19,7 @@ export const appStateInit = {
   feeds: [],
 };
 
-export default onChange(appStateInit, function cbWatcher(path, value) {
+export default (wholeElements) => onChange(appStateInit, function cbWatcher(path, value) {
   if (/feeds/.test(path)) {
     makePostsEl(appStateInit.feeds);
     return;
@@ -27,23 +27,23 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
   switch (path) {
     case 'error': {
       if (value === null) {
-        makeFeedbackEl();
+        makeFeedbackEl(wholeElements);
         return;
       }
-      makeFeedbackEl('error', `feedback.errors.${value}`);
-      inputEl.classList.add('is-invalid');
+      makeFeedbackEl(wholeElements, 'error', `feedback.errors.${value}`);
+      wholeElements.inputEl.classList.add('is-invalid');
       break;
     }
     case 'value': {
       if (value === null) {
-        inputEl.value = '';
-        inputEl.focus();
+        wholeElements.inputEl.value = '';
+        wholeElements.inputEl.focus();
         return;
       }
       if (this.urls.includes(value)) {
         this.error = 'doubleUrl';
       } else {
-        disableInputEls();
+        disableInputEls(wholeElements);
         this.error = null;
         userScheme
           .validate({ value })
@@ -53,14 +53,14 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
             return value;
           })
           .then((result) => {
-            inputEl.classList.remove('is-invalid');
+            wholeElements.inputEl.classList.remove('is-invalid');
             getRss(result)
               .then(parseRss())
               .then((feed) => {
                 this.urls.push(value);
-                makeFeedbackEl('info', 'feedback.info.urlAdded');
+                makeFeedbackEl(wholeElements, 'info', 'feedback.info.urlAdded');
                 this.value = null;
-                enableInputEls();
+                enableInputEls(wholeElements);
                 const newFeed = {
                   id: countsInFeeds.countFeeds,
                   feed,
@@ -82,13 +82,13 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
               .catch((e) => {
                 this.state = 'idle';
                 this.error = e.message;
-                enableInputEls();
+                enableInputEls(wholeElements);
               });
           })
           .catch((e) => {
             this.state = 'idle';
             this.error = e.message;
-            enableInputEls();
+            enableInputEls(wholeElements);
           });
       }
       break;
@@ -96,7 +96,7 @@ export default onChange(appStateInit, function cbWatcher(path, value) {
     case 'state':
       if (value === 'idle') return;
       if (value === 'pending') {
-        makeFeedbackEl();
+        makeFeedbackEl(wholeElements);
       }
       break;
     default:

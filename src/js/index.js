@@ -1,4 +1,4 @@
-import appState, { appStateInit } from './view/watcher.js';
+import appState, { appStateInit } from './view/appState.js';
 import { initFunction } from './view/components.js';
 
 const app = () => {

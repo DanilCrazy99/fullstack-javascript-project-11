@@ -1,27 +1,6 @@
+/* eslint-disable no-param-reassign */
 import { Modal } from 'bootstrap';
 import i18nInstance from '../lang/initLang.js';
-
-export const btnEl = document.getElementById('btn-input');
-export const infoBlock = document.getElementById('info-block');
-export const inputEl = document.getElementById('url-input');
-export const feedBackEl = document.getElementById('feedback');
-export const postsContainer = document.getElementById('posts');
-export const mainEl = document.getElementsByTagName('main');
-export const modalEl = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalBody = document.getElementById('modal-body');
-const headerEl = document.getElementById('header');
-const descriptionEl = document.getElementById('description');
-const exampleEl = document.getElementById('input-example');
-const creatorLinkEl = document.getElementById('creatorLink');
-
-const lngRuEl = document.getElementById('lng_ru');
-const lngEnEl = document.getElementById('lng_en');
-const lngJpEl = document.getElementById('lng_jp');
-
-const headTitle = document.getElementById('title');
-
-const bootstrapEls = {};
 
 export const makePostsEl = (feeds) => {
   const allPosts = feeds.map(({ feed }) => feed.items).flat();
@@ -90,6 +69,7 @@ export const makePostsEl = (feeds) => {
     ulEl.replaceChildren(...liEls);
     return ulEl;
   };
+  const postsContainer = document.getElementById('posts');
 
   postsContainer.innerHTML = `<div class="row">
   <div class="col-md-10 col-lg-8 order-1 mx-auto posts">
@@ -118,14 +98,35 @@ const createMetaElement = (property, content) => {
 };
 
 export const initFunction = (feeds, appState) => {
-  bootstrapEls.modal = new Modal(modalEl);
-  const btnOpenEl = document.getElementById('btn-modal-open');
-  const btnCloseEl = document.getElementById('btn-modal-close');
-  const btnCloseCrossEl = document.getElementById('btn-modal-close-cross');
+  const wholeElements = {
+    inputEl: document.getElementById('url-input'),
+    feedBackEl: document.getElementById('feedback'),
+    btnEl: document.getElementById('btn-input'),
+    modalEl: document.getElementById('modal'),
+    modalTitle: document.getElementById('modal-title'),
+    modalBody: document.getElementById('modal-body'),
+    headerEl: document.getElementById('header'),
+    descriptionEl: document.getElementById('description'),
+    exampleEl: document.getElementById('input-example'),
+    creatorLinkEl: document.getElementById('creatorLink'),
+    lngRuEl: document.getElementById('lng_ru'),
+    lngEnEl: document.getElementById('lng_en'),
+    lngJpEl: document.getElementById('lng_jp'),
+    headTitle: document.getElementById('title'),
+    btnOpenEl: document.getElementById('btn-modal-open'),
+    btnCloseEl: document.getElementById('btn-modal-close'),
+    btnCloseCrossEl: document.getElementById('btn-modal-close-cross'),
+  };
 
-  btnOpenEl.ariaLabel = i18nInstance.t('modal.aria.openBtn');
-  btnCloseEl.ariaLabel = i18nInstance.t('modal.aria.closeBtn');
-  btnCloseCrossEl.ariaLabel = i18nInstance.t('modal.aria.closeBtn');
+  const modalElClass = new Modal(wholeElements.modalEl);
+
+  wholeElements.modalElClass = modalElClass;
+
+  const watcherAppState = appState(wholeElements);
+
+  wholeElements.btnOpenEl.ariaLabel = i18nInstance.t('modal.aria.openBtn');
+  wholeElements.btnCloseEl.ariaLabel = i18nInstance.t('modal.aria.closeBtn');
+  wholeElements.btnCloseCrossEl.ariaLabel = i18nInstance.t('modal.aria.closeBtn');
 
   document.documentElement.setAttribute('lang', i18nInstance.t('meta.lang'));
 
@@ -137,36 +138,36 @@ export const initFunction = (feeds, appState) => {
 
   headEl.append(metaLocale, metaLanguage, metaUrl);
 
-  lngRuEl.textContent = i18nInstance.t('lng.ru');
-  lngEnEl.textContent = i18nInstance.t('lng.en');
-  lngJpEl.textContent = i18nInstance.t('lng.jp');
-  btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
-  btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
-  headTitle.textContent = i18nInstance.t('main.description');
-  headerEl.textContent = i18nInstance.t('main.header');
-  descriptionEl.textContent = i18nInstance.t('main.description');
-  btnEl.textContent = i18nInstance.t('main.submit');
-  exampleEl.textContent = i18nInstance.t('main.example');
+  wholeElements.lngRuEl.textContent = i18nInstance.t('lng.ru');
+  wholeElements.lngEnEl.textContent = i18nInstance.t('lng.en');
+  wholeElements.lngJpEl.textContent = i18nInstance.t('lng.jp');
+  wholeElements.btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
+  wholeElements.btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
+  wholeElements.headTitle.textContent = i18nInstance.t('main.description');
+  wholeElements.headerEl.textContent = i18nInstance.t('main.header');
+  wholeElements.descriptionEl.textContent = i18nInstance.t('main.description');
+  wholeElements.btnEl.textContent = i18nInstance.t('main.submit');
+  wholeElements.exampleEl.textContent = i18nInstance.t('main.example');
 
-  creatorLinkEl.ariaLabel = i18nInstance.t('main.aria.creator');
-  exampleEl.ariaLabel = i18nInstance.t('main.aria.example');
-  btnEl.ariaLabel = i18nInstance.t('main.aria.btn-input');
-  inputEl.ariaLabel = i18nInstance.t('main.aria.url-input');
-  lngRuEl.ariaLabel = i18nInstance.t('lng.aria.ru');
-  lngEnEl.ariaLabel = i18nInstance.t('lng.aria.en');
-  lngJpEl.ariaLabel = i18nInstance.t('lng.aria.jp');
+  wholeElements.creatorLinkEl.ariaLabel = i18nInstance.t('main.aria.creator');
+  wholeElements.exampleEl.ariaLabel = i18nInstance.t('main.aria.example');
+  wholeElements.btnEl.ariaLabel = i18nInstance.t('main.aria.btn-input');
+  wholeElements.inputEl.ariaLabel = i18nInstance.t('main.aria.url-input');
+  wholeElements.lngRuEl.ariaLabel = i18nInstance.t('lng.aria.ru');
+  wholeElements.lngEnEl.ariaLabel = i18nInstance.t('lng.aria.en');
+  wholeElements.lngJpEl.ariaLabel = i18nInstance.t('lng.aria.jp');
 
-  inputEl.setAttribute(
+  wholeElements.inputEl.setAttribute(
     'placeholder',
     i18nInstance.t('main.inputPlaceholder'),
   );
 
-  btnEl.addEventListener('click', (e) => {
+  wholeElements.btnEl.addEventListener('click', (e) => {
     e.preventDefault();
-    appState.value = inputEl.value;
+    watcherAppState.value = wholeElements.inputEl.value;
   });
 
-  modalEl.addEventListener('show.bs.modal', (e) => {
+  wholeElements.modalEl.addEventListener('show.bs.modal', (e) => {
     const postId = Number(e.relatedTarget.dataset.id);
     e.relatedTarget.previousSibling.classList.replace('fw-bold', 'fw-normal');
     e.relatedTarget.previousSibling.classList.add('link-secondary');
@@ -176,24 +177,28 @@ export const initFunction = (feeds, appState) => {
       return false;
     });
     const { title, description } = item.feed.items.find(({ id }) => id === postId);
-    modalTitle.textContent = title;
-    modalBody.textContent = description;
+    wholeElements.modalTitle.textContent = title;
+    wholeElements.modalBody.textContent = description;
   });
   const switchLanguage = () => {
-    headTitle.textContent = i18nInstance.t('main.description');
-    btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
-    btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
-    headerEl.textContent = i18nInstance.t('main.header');
-    descriptionEl.textContent = i18nInstance.t('main.description');
+    wholeElements.headTitle.textContent = i18nInstance.t('main.description');
+    wholeElements.btnOpenEl.textContent = i18nInstance.t('modal.openBtn');
+    wholeElements.btnCloseEl.textContent = i18nInstance.t('modal.closeBtn');
+    wholeElements.headerEl.textContent = i18nInstance.t('main.header');
+    wholeElements.descriptionEl.textContent = i18nInstance.t('main.description');
 
-    inputEl.setAttribute(
+    wholeElements.inputEl.setAttribute(
       'placeholder',
       i18nInstance.t('main.inputPlaceholder'),
     );
-    btnEl.textContent = i18nInstance.t('main.submit');
-    exampleEl.textContent = i18nInstance.t('main.example');
+    wholeElements.btnEl.textContent = i18nInstance.t('main.submit');
+    wholeElements.exampleEl.textContent = i18nInstance.t('main.example');
   };
-  [lngEnEl, lngJpEl, lngRuEl].forEach((btn) => {
+  [
+    wholeElements.lngEnEl,
+    wholeElements.lngJpEl,
+    wholeElements.lngRuEl,
+  ].forEach((btn) => {
     btn.addEventListener('click', (e) => {
       i18nInstance.changeLanguage(e.target.dataset.lng);
       switchLanguage();
@@ -201,26 +206,26 @@ export const initFunction = (feeds, appState) => {
   });
 };
 
-export const makeFeedbackEl = (type, msg = null) => {
-  feedBackEl.textContent = i18nInstance.t(msg);
+export const makeFeedbackEl = (elements, type, msg = null) => {
+  elements.feedBackEl.textContent = i18nInstance.t(msg);
   switch (type) {
     case 'error':
-      feedBackEl.className = 'text-danger m-0';
+      elements.feedBackEl.className = 'text-danger m-0';
       break;
     case 'info':
-      feedBackEl.className = 'text-success m-0';
+      elements.feedBackEl.className = 'text-success m-0';
       break;
     default:
       break;
   }
 };
 
-export const disableInputEls = () => {
-  btnEl.classList.add('disabled');
-  inputEl.setAttribute('disabled', 'disabled');
+export const disableInputEls = (elements) => {
+  elements.btnEl.classList.add('disabled');
+  elements.inputEl.setAttribute('disabled', 'disabled');
 };
 
-export const enableInputEls = () => {
-  btnEl.classList.remove('disabled');
-  inputEl.removeAttribute('disabled', 'disabled');
+export const enableInputEls = (elements) => {
+  elements.btnEl.classList.remove('disabled');
+  elements.inputEl.removeAttribute('disabled', 'disabled');
 };
