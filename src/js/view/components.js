@@ -109,7 +109,7 @@ export const makePostsEl = (feeds) => {
   </div>`;
 };
 
-export const initFunc = (feeds) => {
+export const initFunction = (feeds, appState) => {
   bootstrapEls.modal = new Modal(modalEl);
   const btnOpenEl = document.getElementById('btn-modal-open');
   const btnCloseEl = document.getElementById('btn-modal-close');
@@ -124,6 +124,11 @@ export const initFunc = (feeds) => {
   descriptionEl.textContent = i18nInstance.t('main.description');
   btnEl.textContent = i18nInstance.t('main.submit');
   exampleEl.textContent = i18nInstance.t('main.example');
+
+  btnEl.addEventListener('click', (e) => {
+    e.preventDefault();
+    appState.value = inputEl.value;
+  });
 
   modalEl.addEventListener('show.bs.modal', (e) => {
     const postId = Number(e.relatedTarget.dataset.id);
