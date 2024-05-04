@@ -13,6 +13,7 @@ const modalBody = document.getElementById('modal-body');
 const headerEl = document.getElementById('header');
 const descriptionEl = document.getElementById('description');
 const exampleEl = document.getElementById('input-example');
+const creatorLinkEl = document.getElementById('creatorLink');
 
 const lngRuEl = document.getElementById('lng_ru');
 const lngEnEl = document.getElementById('lng_en');
@@ -147,9 +148,18 @@ export const initFunction = (feeds, appState) => {
   btnEl.textContent = i18nInstance.t('main.submit');
   exampleEl.textContent = i18nInstance.t('main.example');
 
+  creatorLinkEl.ariaLabel = i18nInstance.t('main.aria.creator');
+  exampleEl.ariaLabel = i18nInstance.t('main.aria.example');
+  btnEl.ariaLabel = i18nInstance.t('main.aria.btn-input');
+  inputEl.ariaLabel = i18nInstance.t('main.aria.url-input');
   lngRuEl.ariaLabel = i18nInstance.t('lng.aria.ru');
   lngEnEl.ariaLabel = i18nInstance.t('lng.aria.en');
   lngJpEl.ariaLabel = i18nInstance.t('lng.aria.jp');
+
+  inputEl.setAttribute(
+    'placeholder',
+    i18nInstance.t('main.inputPlaceholder'),
+  );
 
   btnEl.addEventListener('click', (e) => {
     e.preventDefault();

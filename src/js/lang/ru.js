@@ -8,6 +8,12 @@ export default {
       url: 'https://fullstack-javascript-project-11-liart.vercel.app/',
     },
     main: {
+      aria: {
+        'btn-input': 'Добавить ссылку в список для чтения',
+        'url-input': 'Ввод url ссылки RSS ленты',
+        example: 'Пример url ссылки с RSS лентой',
+        creator: 'Ссылка на страницу создателя страницы - VolkovDani',
+      },
       header: 'RSS Агрегатор',
       description: 'Начните читать RSS сегодня! Это легко, это красиво.',
       example: 'Пример: https://lorem-rss.hexlet.app/feed',
